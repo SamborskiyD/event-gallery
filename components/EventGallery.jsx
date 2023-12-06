@@ -30,7 +30,7 @@ const EventGallery = ({ initialEvents }) => {
   return (
     <>
       <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-10">
-        {events.map((event) => (
+        {events?.map((event) => (
           <Card key={event.id} {...event} />
         ))}
       </div>
