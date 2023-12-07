@@ -3,5 +3,13 @@
 @tailwind utilities;
 
 body {
-    @apply bg-primaryGrey text-secondaryBlack
+    @apply bg-stone-800 text-primaryGrey
+}
+
+.checkbox {
+    @apply relative shrink-0 cursor-pointer appearance-none w-6 h-6 border-2 border-primaryGrey rounded  outline-none checked:border-primaryOrange checked:bg-[url(../public/check.svg)]
+}
+
+.inputDate {
+    @apply outline-none w-full rounded-md bg-stone-800 border-2 border-primaryGrey px-3 py-2 text-sm focus:border-primaryOrange appearance-none dark:[color-scheme:dark]
 }

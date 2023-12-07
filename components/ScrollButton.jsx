@@ -8,7 +8,7 @@ const ScrollButton = () => {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed right-5 bottom-5 bg-primaryGrey border-2 border-primaryOrange text-primaryOrange hover:bg-primaryOrange hover:text-primaryGrey p-1.5 md:p-2 rounded-full transition-all duration-300"
+      className="fixed right-5 bottom-5 bg-primaryOrange border-2 border-primaryOrange text-primaryGrey hover:bg-primaryGrey hover:text-primaryOrange p-1.5 md:p-2 rounded-full transition-all duration-300"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
