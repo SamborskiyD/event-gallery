@@ -27,7 +27,7 @@ const Card = ({
             <p className="">Price: {rating}</p>
             <p>Address: </p>
           </div>
-          <a href={`/events/${id}`} className="w-full bg-primaryOrange border-2 border-primaryOrange text-center text-lg p-2 rounded-lg hover:bg-primaryGrey hover:text-primaryOrange transition-color duration-300">Buy Ticket</a>
+          <a href={`/events/${id}`} className="orangeButton transition-color duration-300">Buy Ticket</a>
         </div>
 
         {/* <div className="m-4">

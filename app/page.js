@@ -8,7 +8,7 @@ const Home = async () => {
   const events = await fetchEvents();
 
   return (
-    <section className=" relative px-20 flex gap-10 justify-between my-20">
+    <section className=" relative flex gap-10 justify-between">
       <Filters />
       <div className="max-w-[85%]">
         <EventGallery initialEvents={events} />

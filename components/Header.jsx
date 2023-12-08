@@ -7,8 +7,8 @@ const Header = () => {
         Event Gallery
       </Link>
       <div className="flex gap-5 items-center">
-        <span className=" text-bold text-lg cursor-pointer hover:text-secondaryBlack">Log In</span>
-        <span className=" text-bold text-lg cursor-pointer hover:text-secondaryBlack">Sign Up</span>
+        <Link href='/login' className=" text-bold text-lg cursor-pointer hover:text-secondaryBlack">Log In</Link>
+        <Link href='/signup' className=" text-bold text-lg cursor-pointer hover:text-secondaryBlack">Sign Up</Link>
         <Link href="/profile">
           <svg
             xmlns="http://www.w3.org/2000/svg"

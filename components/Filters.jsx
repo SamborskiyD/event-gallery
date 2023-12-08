@@ -28,7 +28,7 @@ const Filters = () => {
             name=""
             id=""
             min={new Date().toISOString().split("T")[0]}
-            className="inputDate"
+            className="input"
           />
           <label htmlFor="">To</label>
           <input
@@ -36,7 +36,7 @@ const Filters = () => {
             name=""
             id=""
             min={new Date().toISOString().split("T")[0]}
-            className="inputDate"
+            className="input"
           />
         </fieldset>
 

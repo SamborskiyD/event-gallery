@@ -6,7 +6,7 @@ const EventPage = async ({params}) => {
   const event = await fetchEventById(params.eventId)
 
   return (
-    <section className='container overflow-hidden my-20'>
+    <section className=''>
 
       <div className='flex gap-10'>
         <Image width={400} height={400} src={event.background_image} className='object-cover max-w-[500px] h-[400px]'/>
@@ -20,7 +20,7 @@ const EventPage = async ({params}) => {
 
       <div>
         <h2>Tickets</h2>
-        <p>//TODO: thinck how to display tickets</p>
+        <p>//TODO: think how to display tickets</p>
       </div>
 
     </section>
