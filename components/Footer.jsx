@@ -2,17 +2,20 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className=" bg-secondaryBlack py-6 px-10 flex items-center justify-between text-primaryGrey">
+    <footer className=" bg-secondaryBlack py-6 px-10 flex gap-5 items-center justify-center flex-wrap md:justify-between text-primaryGrey">
+
       <Link href="/" className=" uppercase text-extrabold text-2xl">
         Event Gallery
       </Link>
+
       <nav>
-        <ul className=" flex items-center gap-10">
+        <ul className=" flex items-center justify-center flex-wrap gap-y-2 gap-x-10">
           <li><Link href="#" className=" text-bold text-lg cursor-pointer hover:text-primaryOrange">Contact Us</Link></li>
           <li><Link href="#" className=" text-bold text-lg cursor-pointer hover:text-primaryOrange">Purchasing policy</Link></li>
           <li><Link href="#" className=" text-bold text-lg cursor-pointer hover:text-primaryOrange">Services</Link></li>
         </ul>
       </nav>
+
       <div className=" flex items-center gap-10">
         <Link href="#">
           <svg className="h-8 w-8 hover:text-primaryOrange" fill="currentColor" viewBox="0 0 24 24">
@@ -38,6 +41,7 @@ const Footer = () => {
           </svg>
         </Link>
       </div>
+
     </footer>
   );
 };

@@ -6,7 +6,7 @@ import { fetchEvents } from "@/actions/fetchEvents";
 
 import ScrollButton from "./ScrollButton";
 import Card from "./Card";
-
+ 
 const EventGallery = ({ initialEvents }) => {
   const [events, setEvents] = useState(initialEvents);
   const [page, setPage] = useState(1);
@@ -28,8 +28,8 @@ const EventGallery = ({ initialEvents }) => {
   }, [isInView])
 
   return (
-    <>
-      <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-10">
+    <div className=" justify-self-end">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
         {events?.map((event) => (
           <Card key={event.id} {...event} />
         ))}
@@ -42,7 +42,7 @@ const EventGallery = ({ initialEvents }) => {
         <span className='sr-only'>Loading...</span>
       </div>
       <ScrollButton />
-    </>
+    </div>
   );
 };
 

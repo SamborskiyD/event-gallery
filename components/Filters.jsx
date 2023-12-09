@@ -1,53 +1,51 @@
+"use client";
+import { useState } from "react";
+
 const Filters = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="w-full max-w-[15%] py-5 px-4 h-min  bg-secondaryBlack rounded-lg shadow-lg ">
-      <h1 className="text-2xl font-semibold mb-3">Filters</h1>
-      <form className="flex flex-col gap-5">
-        <fieldset className="flex flex-col items-start gap-3">
+    <div className="py-5 px-4 h-min  bg-secondaryBlack rounded-lg shadow-lg overflow-hidden cursor-pointer" >
+      <h1 className="text-2xl font-semibold" onClick={() => setIsOpen((prev) => !prev)}>Filters</h1>
+
+      <form
+        className={`
+          flex flex-wrap md:flex-nowrap justify-between items-start max-h-0 gap-5 overflow-hidden transition-all duration-500 ${
+            isOpen ? "max-h-[800px] mt-3" : ""
+          }`}
+      >
+
+        <fieldset className="flex w-full flex-wrap gap-3 ">
           <legend className="text-xl mb-2.5">Type</legend>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <input type="checkbox" name="" id="" className="checkbox" />
             <label htmlFor="">Type</label>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <input type="checkbox" name="" id="" className="checkbox" />
             <label htmlFor="">Type</label>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <input type="checkbox" name="" id="" className="checkbox" />
             <label htmlFor="">Type</label>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <input type="checkbox" name="" id="" className="checkbox" />
             <label htmlFor="">Type</label>
           </div>
         </fieldset>
 
-        <fieldset className="flex flex-col items-start gap-3">
+        <fieldset className="flex w-full items-start gap-3">
           <legend className="text-xl mb-2.5">City</legend>
-          <div className="flex items-center gap-4">
-            <input type="checkbox" name="" id="" className="checkbox" />
-            <label htmlFor="">City</label>
-          </div>
-          <div className="flex items-center gap-4">
-            <input type="checkbox" name="" id="" className="checkbox" />
-            <label htmlFor="">City</label>
-          </div>
-          <div className="flex items-center gap-4">
-            <input type="checkbox" name="" id="" className="checkbox" />
-            <label htmlFor="">City</label>
-          </div>
-          <div className="flex items-center gap-4">
-            <input type="checkbox" name="" id="" className="checkbox" />
-            <label htmlFor="">City</label>
-          </div>
-          <div className="flex items-center gap-4">
-            <input type="checkbox" name="" id="" className="checkbox" />
-            <label htmlFor="">City</label>
-          </div>
+          <select name="" id="" className="input">
+            <option value="">City</option>
+            <option value="">City</option>
+            <option value="">City</option>
+            <option value="">City</option>
+          </select>
         </fieldset>
 
-        <fieldset className="flex flex-col items-start gap-3">
+        <fieldset className="flex w-full  items-start gap-3">
           <legend className="text-xl mb-2.5">Date</legend>
           <input
             type="date"
@@ -57,12 +55,15 @@ const Filters = () => {
             className="input"
           />
         </fieldset>
-        <button className="orangeButton transition-color duration-300">
-          Apply filters
-        </button>
-        <button className="greyButton transition-color duration-300">
-          Remove filters
-        </button>
+
+        <div className="flex flex-wrap gap-4 w-full">
+          <button className="orangeButton transition-color duration-300">
+            Apply filters
+          </button>
+          <button className="greyButton transition-color duration-300">
+            Remove filters
+          </button>
+        </div>
       </form>
     </div>
   );
