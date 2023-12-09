@@ -11,9 +11,13 @@ body {
 }
 
 .input {
-    @apply outline-none w-full rounded-md bg-stone-800 border-2 border-primaryGrey px-3 py-2 text-sm focus:border-primaryOrange appearance-none dark:[color-scheme:dark]
+    @apply outline-none w-full rounded-lg bg-stone-800 px-4 py-3.5 focus:border focus:border-primaryOrange appearance-none dark:[color-scheme:dark]
 }
 
 .orangeButton {
     @apply w-full bg-primaryOrange border-2 border-primaryOrange text-center text-lg p-2 rounded-lg hover:bg-primaryGrey hover:text-primaryOrange
+}
+
+.greyButton {
+    @apply w-full bg-stone-800 text-primaryGrey border-2 border-stone-800 hover:border-primaryOrange hover:text-primaryOrange text-center text-lg p-2 rounded-lg hover:bg-secondaryBlack
 }
