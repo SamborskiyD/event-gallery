@@ -16,7 +16,7 @@ const EventPage = async ({ params }) => {
           className="object-cover md:max-w-[40%] h-[500px] rounded-lg bg-primaryOrange"
         />
 
-        <div className="flex flex-col py-10">
+        <div className="flex flex-col py-10 w-full">
           <h1 className=" text-6xl font-semibold mb-8">{event.name}</h1>
 
           <ul className="mb-8 flex flex-col gap-4">

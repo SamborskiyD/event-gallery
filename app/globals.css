@@ -11,7 +11,7 @@ body {
 }
 
 .input {
-    @apply outline-none w-full rounded-lg bg-stone-800 px-4 py-3.5 focus:border focus:border-primaryOrange appearance-none dark:[color-scheme:dark]
+    @apply outline-none w-full rounded-lg bg-stone-800 focus:bg-stone-800 px-4 py-3.5 focus:border focus:border-primaryOrange appearance-none dark:[color-scheme:dark]
 }
 
 .orangeButton {

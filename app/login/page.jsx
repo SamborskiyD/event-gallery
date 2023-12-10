@@ -1,18 +1,31 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"
+import * as yup from "yup"
+
+const validationSchema = yup.object({
+  email: yup.string().email('Enter a valid email').required('Email is required'),
+  password: yup.string()
+  .required('Password is required')
+  .min(8, 'Password should contain 8 or more characters')
+  .matches(/^[A-Za-z0-9]*$/, 'Password should contain only Latin letters and numbers'),
+})
 
 const Login = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(validationSchema)
+  });
   const onSubmit = (data) => console.log(data);
 
   return (
     <section className="w-full flex justify-center">
       <form
+        method="post"
         onSubmit={handleSubmit(onSubmit)}
         className="bg-secondaryBlack p-6 flex flex-col justify-center gap-4 max-w-[600px] w-full rounded-lg"
       >
@@ -23,9 +36,10 @@ const Login = () => {
           <input
             type="text"
             id="email"
-            className="input"
-            {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
+            className="input invalid:border-2 invalid:border-red-500"
+            {...register("email")}
           />
+          <p className=" text-red-500 mt-2">{errors.email?.message}</p>
         </div>
         <div>
           <label htmlFor="password" className="mb-2 block">
@@ -35,8 +49,9 @@ const Login = () => {
             type="password"
             className="input"
             id="password"
-            {...register("password", { required: true })}
+            {...register("password")}
           />
+          <p className=" text-red-500 mt-2">{errors.password?.message}</p>
         </div>
         <button
           type="submit"
