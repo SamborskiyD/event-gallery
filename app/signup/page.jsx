@@ -17,7 +17,7 @@ const SignUp = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="bg-secondaryBlack p-6 flex flex-col justify-center gap-4 max-w-[600px] w-full rounded-lg"
       >
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <div className="w-full">
             <label htmlFor="firstName" className="mb-3 block">
               First Name

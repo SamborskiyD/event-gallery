@@ -6,11 +6,12 @@ import { fetchEvents } from "@/actions/fetchEvents";
 
 import ScrollButton from "./ScrollButton";
 import Card from "./Card";
- 
+
 const EventGallery = ({ initialEvents }) => {
   const [events, setEvents] = useState(initialEvents);
   const [page, setPage] = useState(1);
   const [ref, isInView] = useInView();
+  const [isButtonVisible, setIsButtonVisible] = useState(false);
 
   async function fetchMoreEvents() {
     const nextPage = page + 1;
@@ -22,10 +23,21 @@ const EventGallery = ({ initialEvents }) => {
   }
 
   useEffect(() => {
-    if(isInView) {
-      fetchMoreEvents()
+    if (isInView) {
+      fetchMoreEvents();
     }
-  }, [isInView])
+  }, [isInView]);
+
+  useEffect(() => {
+    const handleScrollButtonVisibility = () => {
+      setIsButtonVisible(window.scrollY > window.innerHeight);
+    };
+
+    window.addEventListener("scroll", handleScrollButtonVisibility);
+
+    return () =>
+      window.removeEventListener("scroll", handleScrollButtonVisibility);
+  }, []);
 
   return (
     <div className=" justify-self-end">
@@ -35,13 +47,10 @@ const EventGallery = ({ initialEvents }) => {
         ))}
       </div>
 
-      <div
-        ref={ref}
-        className='mt-16 flex items-center justify-center'
-      >
-        <span className='sr-only'>Loading...</span>
+      <div ref={ref} className="mt-16 flex items-center justify-center">
+        <span className="sr-only">Loading...</span>
       </div>
-      <ScrollButton />
+      {isButtonVisible && <ScrollButton />}
     </div>
   );
 };
