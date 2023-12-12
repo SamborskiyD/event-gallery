@@ -2,6 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
+import { registerUser } from "@/actions/registerUser";
+
 import * as yup from "yup"
 
 const validationSchema = yup.object({
@@ -14,7 +16,7 @@ const validationSchema = yup.object({
   .matches(/^[A-Za-z0-9]*$/, 'Password should contain only Latin letters and numbers')
   .oneOf([yup.ref('passwordConfirm'), null], 'Passwords should match'),
   passwordConfirm: yup.string().required('Please confirm your password').oneOf([yup.ref('password'), null], 'Passwords should match')
-  
+
 })
 
 const SignUp = () => {
@@ -26,7 +28,16 @@ const SignUp = () => {
     resolver: yupResolver(validationSchema)
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async data => {
+    const dataToRegister = {
+      firstName: data.fistName, 
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+    }
+    const response = await registerUser(dataToRegister)
+    console.log(response)
+  };
 
   return (
     <section className="w-full flex justify-center">

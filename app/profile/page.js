@@ -1,7 +1,13 @@
 
 import Ticket from "@/components/Ticket"
+import { getTicketsByUserId } from "@/actions/getTicketsByUserId"
+import { getUserById } from "@/actions/getUserById"
 
-export default function Profile() {
+export default async function Profile({searchParams}) {
+
+    const tickets = await getTicketsByUserId(searchParams.userId)
+    const userData = await getUserById(searchParams.usetId)
+
     return (
         <section>
             <h2 className=" text-4xl font-semibold mb-4">About</h2>
@@ -19,11 +25,10 @@ export default function Profile() {
             </ul>
 
             <h2 className=" text-4xl font-semibold mb-4">Tickets</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <Ticket />
-                <Ticket />
-                <Ticket />
-                <Ticket />
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+                {
+                    tickets?.map((ticket) => (<Ticket {...ticket} />))
+                }
             </div>
         </section>
     )

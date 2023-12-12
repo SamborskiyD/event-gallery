@@ -2,20 +2,20 @@
 
 import { useInView } from "react-intersection-observer";
 import { useState, useEffect } from "react";
-import { fetchEvents } from "@/actions/fetchEvents";
+import { getEvents } from "@/actions/getEvents";
 
 import ScrollButton from "./ScrollButton";
 import Card from "./Card";
 
-const EventGallery = ({ initialEvents }) => {
+const EventGallery = ({ initialEvents, date, city, types }) => {
   const [events, setEvents] = useState(initialEvents);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [ref, isInView] = useInView();
   const [isButtonVisible, setIsButtonVisible] = useState(false);
 
   async function fetchMoreEvents() {
     const nextPage = page + 1;
-    const newEvents = await fetchEvents(nextPage);
+    const newEvents = await getEvents(nextPage, types, date, city);
     if (newEvents.length) {
       setPage(nextPage);
       setEvents((prev) => [...prev, ...newEvents]);

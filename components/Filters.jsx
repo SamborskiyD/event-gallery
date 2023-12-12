@@ -1,19 +1,27 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { getEventCities } from "@/actions/getEventCities";
 
 const Filters = () => {
+  const [cities, setCities] = useState([])
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       city: "",
       date: "",
-      type: [],
+      types: [],
     },
   });
+
+
+  useEffect( async () => {
+    const fetchedCities = await getEventCities();
+    setCities(fetchedCities)
+  }, [])
 
   const removeFilters = () => {
     reset();
@@ -21,7 +29,7 @@ const Filters = () => {
   };
 
   const onSubmit = (data) => {
-    router.push(`/?city=${data.city}&date=${data.date}&type=${data.type}`);
+    router.push(`/?city=${data.city}&date=${data.date}&types=${data.types}`);
   };
 
   return (
@@ -80,7 +88,7 @@ const Filters = () => {
               id="type1"
               className="checkbox"
               value="type1"
-              {...register("type")}
+              {...register("types")}
             />
             <label htmlFor="type1">Type 1</label>
           </div>
@@ -91,7 +99,7 @@ const Filters = () => {
               id="type2"
               className="checkbox"
               value="type2"
-              {...register("type")}
+              {...register("types")}
             />
             <label htmlFor="type2">Type 2</label>
           </div>
@@ -102,7 +110,7 @@ const Filters = () => {
               id="type3"
               className="checkbox"
               value="type3"
-              {...register("type")}
+              {...register("types")}
             />
             <label htmlFor="type3">Type 3</label>
           </div>
@@ -113,7 +121,7 @@ const Filters = () => {
               id="type4"
               className="checkbox"
               value="type4"
-              {...register("type")}
+              {...register("types")}
             />
             <label htmlFor="type4">Type 4</label>
           </div>
@@ -122,10 +130,9 @@ const Filters = () => {
         <fieldset className="flex w-full items-start gap-3">
           <legend className="text-xl mb-2.5">City</legend>
           <select name="city" id="city" className="input" {...register("city")}>
-            <option value="City 1">City 1</option>
-            <option value="City 2">City 2</option>
-            <option value="City 3">City 3</option>
-            <option value="City 4">City 4</option>
+            {cities?.map((city, index) => (
+              <option key={index} value={city}>{city}</option>
+            ))}
           </select>
         </fieldset>
 

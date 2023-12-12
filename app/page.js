@@ -1,16 +1,20 @@
 
 import Filters from "@/components/Filters"
 import EventGallery from "@/components/EventGallery"
-import { fetchEvents } from "@/actions/fetchEvents"
+import { getEvents } from "@/actions/getEvents"
 
-const Home = async () => {
+const Home = async ({searchParams}) => {
 
-  const events = await fetchEvents();
+  const events = await getEvents();
+  
+  const date = searchParams.date
+  const city = searchParams.city
+  const types = searchParams.types
 
   return (
     <section className="flex flex-col justify-between gap-6">
       <Filters />
-      <EventGallery initialEvents={events} />
+      <EventGallery initialEvents={events} date={date} city={city} types={types} />
     </section>
   )
 }
