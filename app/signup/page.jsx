@@ -5,10 +5,11 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { registerUser } from "@/actions/registerUser";
 
 import * as yup from "yup"
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
-  firstName: yup.string().required('First Name is required'),
-  lastName: yup.string().required('Last Name is required'),
+  firstName: yup.string().required('First Name is required').matches(/^[A-Za-z]*$/, 'First Name should contain only Latin letters'),
+  lastName: yup.string().required('Last Name is required').matches(/^[A-Za-z]*$/, 'Last Name should contain only Latin letters'),
   email: yup.string().email('Enter a valid email').required('Email is required'),
   password: yup.string()
   .required('Password is required')
@@ -20,6 +21,9 @@ const validationSchema = yup.object({
 })
 
 const SignUp = () => {
+
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -35,8 +39,9 @@ const SignUp = () => {
       email: data.email,
       password: data.password,
     }
-    const response = await registerUser(dataToRegister)
-    console.log(response)
+    // const response = await registerUser(dataToRegister)
+    
+    setTimeout(router.push('login'), 3000)
   };
 
   return (

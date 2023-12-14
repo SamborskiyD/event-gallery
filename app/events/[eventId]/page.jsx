@@ -1,8 +1,8 @@
-import { getEventById } from "@/actions/getEventById";
+import { getData } from "@/actions/getData";
 import Image from "next/image";
 
 const EventPage = async ({ searchParams }) => {
-  const event = await getEventById(searchParams.eventId);
+  const event = await getData(`/api/event/${searchParams.eventId}`);
 
   return (
     <section className="">

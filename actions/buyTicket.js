@@ -1,6 +1,6 @@
 
 export async function buyTicket(data) {
-    const localhost = process.env.NEXT_PUBLIC_LOCALHOST
+    const localhost = process.env.API_LOCALHOST
     const response = await fetch(`${localhost}/api/ticket`, {
         method: "POST",
         headers: {

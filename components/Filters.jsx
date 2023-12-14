@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { getEventCities } from "@/actions/getEventCities";
+import { getData } from "@/actions/getData";
 
 const Filters = () => {
   const [cities, setCities] = useState([])
@@ -17,11 +17,10 @@ const Filters = () => {
     },
   });
 
-
-  useEffect( async () => {
-    const fetchedCities = await getEventCities();
-    setCities(fetchedCities)
-  }, [])
+  // useEffect( async () => {
+  //   const fetchedCities = await getData('/api/event/cities');
+  //   setCities(fetchedCities)
+  // }, [])
 
   const removeFilters = () => {
     reset();

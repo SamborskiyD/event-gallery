@@ -2,7 +2,8 @@
 
 import { useInView } from "react-intersection-observer";
 import { useState, useEffect } from "react";
-import { getEvents } from "@/actions/getEvents";
+// import { getEvents } from "@/actions/getEvents";
+import { getData } from "@/actions/getData";
 
 import ScrollButton from "./ScrollButton";
 import Card from "./Card";
@@ -15,7 +16,8 @@ const EventGallery = ({ initialEvents, date, city, types }) => {
 
   async function fetchMoreEvents() {
     const nextPage = page + 1;
-    const newEvents = await getEvents(nextPage, types, date, city);
+    const url = `/api/event?page=${nextPage}&types=${types}${date !== '' ? '&date=' + date : ''}${city !== '' ? '&city=' + city : ''}`
+    const newEvents = await getData(url);
     if (newEvents.length) {
       setPage(nextPage);
       setEvents((prev) => [...prev, ...newEvents]);

@@ -5,8 +5,8 @@ import { getUserById } from "@/actions/getUserById"
 
 export default async function Profile({searchParams}) {
 
-    const tickets = await getTicketsByUserId(searchParams.userId)
-    const userData = await getUserById(searchParams.usetId)
+    // const tickets = await getTicketsByUserId(searchParams.userId)
+    // const userData = await getUserById(searchParams.usetId)
 
     return (
         <section>
@@ -25,11 +25,11 @@ export default async function Profile({searchParams}) {
             </ul>
 
             <h2 className=" text-4xl font-semibold mb-4">Tickets</h2>
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+            {/* <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {
                     tickets?.map((ticket) => (<Ticket {...ticket} />))
                 }
-            </div>
+            </div> */}
         </section>
     )
 }

@@ -3,6 +3,8 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object({
   email: yup.string().email('Enter a valid email').required('Email is required'),
@@ -13,6 +15,9 @@ const validationSchema = yup.object({
 })
 
 const Login = () => {
+
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -21,7 +26,18 @@ const Login = () => {
     resolver: yupResolver(validationSchema)
   });
   
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+
+    const res = await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    })
+
+    if (res && !res.error) router.push('/profile')
+    else console.log(res)
+
+  };
 
   return (
     <section className="w-full flex justify-center">
