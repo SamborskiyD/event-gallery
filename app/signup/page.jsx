@@ -39,7 +39,7 @@ const SignUp = () => {
       email: data.email,
       password: data.password,
     }
-    // const response = await registerUser(payload)
+    registerUser(payload)
     
     setTimeout(router.push('login'), 3000)
   };

@@ -1,11 +1,13 @@
 
 import Ticket from "@/components/Ticket"
 import { getTicketsByUserId } from "@/actions/getTicketsByUserId"
-import { getUserById } from "@/actions/getUserById"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/configs/auth"
 
-export default async function Profile({searchParams}) {
+export default async function Profile() {
 
-    // const tickets = await getTicketsByUserId(searchParams.userId)
+    const session = await getServerSession(authOptions)
+    const tickets = await getTicketsByUserId(session?.user.uuid)
     // const userData = await getUserById(searchParams.usetId)
 
     return (
@@ -14,13 +16,13 @@ export default async function Profile({searchParams}) {
 
             <ul className="mb-8 flex flex-col gap-4">
                 <li className="text-xl flex gap-3 items-start">
-                    First name
+                    First name: {session?.user.firstName}
                 </li>
                 <li className="text-xl flex gap-3 items-start">
-                    Last name
+                    Last name: {session?.user.lastName}
                 </li>
                 <li className="text-xl flex gap-3 items-start">
-                    Email
+                    Email: {session?.user.email}
                 </li>
             </ul>
 
