@@ -5,8 +5,8 @@ import { getData } from "@/actions/getData"
 
 const Home = async ({searchParams}) => {
 
-  // const events = await getData();
-  
+  const events = await getData('/api/event?page=0&types=');
+   
   const date = searchParams.date
   const city = searchParams.city
   const types = searchParams.types
@@ -14,7 +14,7 @@ const Home = async ({searchParams}) => {
   return (
     <section className="flex flex-col justify-between gap-6">
       <Filters />
-      {/* <EventGallery initialEvents={events} date={date} city={city} types={types} /> */}
+      <EventGallery key={Math.random()} initialEvents={events} date={date} city={city} types={types} />
     </section>
   )
 }

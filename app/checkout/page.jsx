@@ -19,7 +19,7 @@ const validationSchema = yup.object({
   cvv: yup.string().required("CVV is required")
 });
 
-const CheckoutPage = () => {
+const CheckoutPage = ({searchParams}) => {
   const [purchased, setPurchased] = useState(false);
 
   const {
@@ -28,10 +28,27 @@ const CheckoutPage = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      card: '',
+      expiryDate: '',
+      cvv: '',
+    }
   });
 
   const onSubmit = (data) => {
+
+    const payload = {
+      firstName: data.fistName, 
+      lastName: data.lastName,
+      email: data.email,
+      eventUuid: searchParams.eventId,
+    }
+
     // ..... buyTicket post request
+
     setTimeout(() => {
       setPurchased(true);
     }, 3000);

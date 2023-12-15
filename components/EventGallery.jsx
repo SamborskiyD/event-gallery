@@ -2,7 +2,6 @@
 
 import { useInView } from "react-intersection-observer";
 import { useState, useEffect } from "react";
-// import { getEvents } from "@/actions/getEvents";
 import { getData } from "@/actions/getData";
 
 import ScrollButton from "./ScrollButton";
@@ -14,22 +13,25 @@ const EventGallery = ({ initialEvents, date, city, types }) => {
   const [ref, isInView] = useInView();
   const [isButtonVisible, setIsButtonVisible] = useState(false);
 
-  async function fetchMoreEvents() {
-    const nextPage = page + 1;
-    const url = `/api/event?page=${nextPage}&types=${types}${date !== '' ? '&date=' + date : ''}${city !== '' ? '&city=' + city : ''}`
-    const newEvents = await getData(url);
-    if (newEvents.length) {
-      setPage(nextPage);
-      setEvents((prev) => [...prev, ...newEvents]);
-    }
-  }
 
   useEffect(() => {
+    async function fetchMoreEvents() {
+      const nextPage = page + 1;
+      const url = `/api/event?page=${nextPage}&types=${types ? types : ''}${date ? '&date=' + date : ''}${city ? '&city=' + city : ''}`
+      const newEvents = await getData(url);
+      
+      if (newEvents.length) {
+        setPage(nextPage);
+        setEvents((prev) => [...prev, ...newEvents]);
+      }
+    }
+
     if (isInView) {
-      fetchMoreEvents();
+       fetchMoreEvents();
     }
   }, [isInView]);
 
+  
   useEffect(() => {
     const handleScrollButtonVisibility = () => {
       setIsButtonVisible(window.scrollY > window.innerHeight);
@@ -45,7 +47,7 @@ const EventGallery = ({ initialEvents, date, city, types }) => {
     <div className=" justify-self-end">
       <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
         {events?.map((event) => (
-          <Card key={event.id} {...event} />
+          <Card key={event.uuid} {...event} />
         ))}
       </div>
 

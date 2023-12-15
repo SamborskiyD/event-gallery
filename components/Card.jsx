@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Card = ({
   name,
-  id,
+  uuid,
   background_image,
   date,
   type,
@@ -12,13 +12,16 @@ const Card = ({
   return (
     <div className="relative">
       <div className="group relative shadow-lg rounded-xl overflow-hidden text-primaryGrey hover:scale-110 transition-all duration-300">
-        <Image
+        {/* <Image
           width={500}
           height={500}
           src={background_image}
           alt="poster"
           className="object-cover w-full h-96 bg-primaryOrange"
-        />
+        /> */}
+        <div className="object-cover w-full h-96 bg-primaryOrange">
+
+        </div>
 
         <div className="px-6 flex flex-col justify-between absolute top-0 w-full bg-secondaryBlack h-0 overflow-hidden group-hover:h-full group-hover:py-6 transition-all duration-500">
           <h1 className="text-2xl">{name}</h1>
@@ -28,7 +31,7 @@ const Card = ({
             <li>City: {city}</li>
             <li>Date {date}</li>
           </ul>
-          <a href={`/events/${id}`} aria-label="buy ticket" className="orangeButton transition-color duration-300">Buy Ticket</a>
+          <a href={`/events?eventId=${uuid}`} aria-label="buy ticket" className="orangeButton transition-color duration-300">Buy Ticket</a>
         </div>
         
       </div>

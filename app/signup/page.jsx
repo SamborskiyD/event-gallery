@@ -33,13 +33,13 @@ const SignUp = () => {
   });
 
   const onSubmit = async data => {
-    const dataToRegister = {
+    const payload = {
       firstName: data.fistName, 
       lastName: data.lastName,
       email: data.email,
       password: data.password,
     }
-    // const response = await registerUser(dataToRegister)
+    // const response = await registerUser(payload)
     
     setTimeout(router.push('login'), 3000)
   };

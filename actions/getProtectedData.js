@@ -3,7 +3,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]";
 import { refreshAccessToken } from "./refreshAccessToken";
 
 export async function getProtectedData(url) {
-    const localhost = process.env.API_LOCALHOST
+    const localhost = process.env.NEXT_PUBLIC_API_LOCALHOST
 
     const session = await getServerSession(authOptions);
 

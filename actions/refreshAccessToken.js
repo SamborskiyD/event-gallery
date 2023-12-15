@@ -1,6 +1,6 @@
 
 export async function refreshAccessToken(refreshToken) {
-    const localhost = process.env.API_LOCALHOST
+    const localhost = process.env.NEXT_PUBLIC_API_LOCALHOST
 
     const response = await fetch(`${localhost}/api/auth/refresh`, {
         method: "POST",

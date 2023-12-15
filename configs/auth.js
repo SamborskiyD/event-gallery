@@ -12,16 +12,26 @@ export const authOptions = {
             async authorize(credentials, req) {
 
                 // Fetch query to check if user registered or not. return user data and tokenPair
-                let user
-                if (!credentials?.email || !credentials?.password) {
-                    user = null
-                }
-                else if (credentials.email === 'admin@gmail.com' && credentials.password === 'admin1234') {
-                    user = { firstName: 'admin', lastName: 'admin', email: credentials.email }
-                }
-
-                //
-
+                // let user
+                // if (!credentials?.email || !credentials?.password) {
+                //     user = null
+                // }
+                // else if (credentials.email === 'admin@gmail.com' && credentials.password === 'admin1234') {
+                //     user = { firstName: 'admin', lastName: 'admin', email: credentials.email }
+                // }
+                const localhost = process.env.NEXT_PUBLIC_API_LOCALHOST
+                const res = await fetch(`${localhost}/api/auth/login`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: credentials?.email,
+                        password: credentials?.password,
+                    }),
+                });
+                const user = await res.json();
+                
                 if (user) return user
                 else return null
             },

@@ -86,7 +86,7 @@ const Filters = () => {
               name="type1"
               id="type1"
               className="checkbox"
-              value="type1"
+              value="CONCERT"
               {...register("types")}
             />
             <label htmlFor="type1">Type 1</label>
