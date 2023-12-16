@@ -17,10 +17,14 @@ const Filters = () => {
     },
   });
 
-  // useEffect( async () => {
-  //   const fetchedCities = await getData('/api/event/cities');
-  //   setCities(fetchedCities)
-  // }, [])
+  const getCities = async () => {
+    const fetchedCities = await getData('/api/event/cities');
+    setCities(fetchedCities)
+  }
+
+  useEffect(() => {
+    getCities();
+  }, [])
 
   const removeFilters = () => {
     reset();
@@ -28,7 +32,8 @@ const Filters = () => {
   };
 
   const onSubmit = (data) => {
-    router.push(`/?city=${data.city}&date=${data.date}&types=${data.types}`);
+
+    router.push(`?city=${data.city}&date=${data.date}&types=${data.types}`);
   };
 
   return (
@@ -89,7 +94,7 @@ const Filters = () => {
               value="CONCERT"
               {...register("types")}
             />
-            <label htmlFor="type1">Type 1</label>
+            <label htmlFor="type1">Concert</label>
           </div>
           <div className="flex items-center gap-3">
             <input
@@ -97,10 +102,10 @@ const Filters = () => {
               name="type2"
               id="type2"
               className="checkbox"
-              value="type2"
+              value="PERFORMANCE"
               {...register("types")}
             />
-            <label htmlFor="type2">Type 2</label>
+            <label htmlFor="type2">Performance</label>
           </div>
           <div className="flex items-center gap-3">
             <input
@@ -108,21 +113,10 @@ const Filters = () => {
               name="type3"
               id="type3"
               className="checkbox"
-              value="type3"
+              value="STAND_UP"
               {...register("types")}
             />
-            <label htmlFor="type3">Type 3</label>
-          </div>
-          <div className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              name="type4"
-              id="type4"
-              className="checkbox"
-              value="type4"
-              {...register("types")}
-            />
-            <label htmlFor="type4">Type 4</label>
+            <label htmlFor="type3">Stand Up</label>
           </div>
         </fieldset>
 

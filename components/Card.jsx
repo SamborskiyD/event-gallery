@@ -26,7 +26,7 @@ const Card = ({
         <div className="px-6 flex flex-col justify-between absolute top-0 w-full bg-secondaryBlack h-0 overflow-hidden group-hover:h-full group-hover:py-6 transition-all duration-500">
           <h1 className="text-2xl">{name}</h1>
           <ul>
-            <li>Type: {type}</li>
+            <li className=" capitalize">Type: {type}</li>
             <li className="">Price: {ticketPrice}</li>
             <li>City: {city}</li>
             <li>Date {date}</li>

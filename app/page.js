@@ -5,11 +5,15 @@ import { getData } from "@/actions/getData"
 
 const Home = async ({searchParams}) => {
 
-  const events = await getData('/api/event?page=0&types=');
-
   const date = searchParams.date
   const city = searchParams.city
   const types = searchParams.types
+
+  const url = `/api/event?page=0&types=${types ? types : ""}${
+          date ? "&date=" + date : ""
+        }${city ? "&city=" + city : ""}`;
+
+  const events = await getData(url);
 
   return (
     <section className="flex flex-col justify-between gap-6">

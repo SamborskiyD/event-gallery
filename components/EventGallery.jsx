@@ -13,24 +13,24 @@ const EventGallery = ({ initialEvents, date, city, types }) => {
   const [ref, isInView] = useInView();
   const [isButtonVisible, setIsButtonVisible] = useState(false);
 
-  // useEffect(() => {
-  //   async function fetchMoreEvents() {
-  //     const nextPage = page + 1;
-  //     const url = `/api/event?page=${nextPage}&types=${types ? types : ""}${
-  //       date ? "&date=" + date : ""
-  //     }${city ? "&city=" + city : ""}`;
-  //     const newEvents = await getData(url);
+  useEffect(() => {
+    async function fetchMoreEvents() {
+      const nextPage = page + 1;
+      const url = `/api/event?page=${nextPage}&types=${types ? types : ""}${
+        date ? "&date=" + date : ""
+      }${city ? "&city=" + city : ""}`;
+      const newEvents = await getData(url);
 
-  //     if (newEvents.length) {
-  //       setPage(nextPage);
-  //       setEvents((prev) => [...prev, ...newEvents]);
-  //     }
-  //   }
+      if (newEvents.length) {
+        setPage(nextPage);
+        setEvents((prev) => [...prev, ...newEvents]);
+      }
+    }
 
-  //   if (isInView) {
-  //     fetchMoreEvents();
-  //   }
-  // }, [isInView]);
+    if (isInView) {
+      fetchMoreEvents();
+    }
+  }, [isInView]);
 
   useEffect(() => {
     const handleScrollButtonVisibility = () => {
