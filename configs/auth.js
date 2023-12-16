@@ -37,18 +37,18 @@ export const authOptions = {
             },
         })
     ],
-    // callbacks: {
-    //     async jwt({ token, user }) {
+    callbacks: {
+        async jwt({ token, user }) {
 
-    //         return { ...token, ...user };
-    //     },
+            return { ...token, ...user };
+        },
 
-    //     async session({ session, token, user }) {
-    //         session.user = token;
+        async session({ session, token, user }) {
+            session.user = token;
 
-    //         return session;
-    //     },
-    // },
+            return session;
+        },
+    },
     pages: {
         signIn: '/login'
     }
