@@ -10,7 +10,7 @@ const Card = ({
   city
 }) => {
   return (
-    <div className="relative">
+    <div className="relative" aria-label="card"> 
       <div className="group relative shadow-lg rounded-xl overflow-hidden text-primaryGrey hover:scale-110 transition-all duration-300">
         {/* <Image
           width={500}
