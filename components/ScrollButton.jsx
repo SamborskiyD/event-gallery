@@ -15,6 +15,7 @@ const ScrollButton = () => {
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
+        role="icon"
         stroke="currentColor" 
         className=" w-5 h-5 md:w-6 md:h-6"
       >

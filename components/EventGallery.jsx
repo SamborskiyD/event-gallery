@@ -2,7 +2,7 @@
 
 import { useInView } from "react-intersection-observer";
 import { useState, useEffect } from "react";
-import { getData } from "@/actions/getData";
+import { getData } from "../actions/getData";
 
 import ScrollButton from "./ScrollButton";
 import Card from "./Card";

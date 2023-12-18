@@ -1,4 +1,4 @@
-import { getData } from "@/actions/getData";
+import { getData } from "../../actions/getData";
 import Image from "next/image";
 
 const EventPage = async ({ searchParams }) => {
@@ -40,7 +40,7 @@ const EventPage = async ({ searchParams }) => {
                   d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
                 />
               </svg>
-              {event.city + " " + event.cityAddress}
+              {event.city + ", " + event.cityAddress}
             </li>
             <li className="text-xl flex gap-3 items-start">
               <svg
@@ -107,7 +107,7 @@ const EventPage = async ({ searchParams }) => {
 
       <div className="md:mt-10">
         <h2 className=" text-4xl font-semibold mb-4">About</h2>
-        <p className="text-lg">{event.description}</p>
+        <p role="description" className="text-lg">{event.description}</p>
       </div>
     </section>
   );

@@ -3,10 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { getData } from "@/actions/getData";
+import { getData } from "../actions/getData";
 
 const Filters = () => {
-  const [cities, setCities] = useState([])
+  const [cities, setCities] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { register, handleSubmit, reset } = useForm({
@@ -18,13 +18,13 @@ const Filters = () => {
   });
 
   const getCities = async () => {
-    const fetchedCities = await getData('/api/event/cities');
-    setCities(fetchedCities)
-  }
+    const fetchedCities = await getData("/api/event/cities");
+    setCities(fetchedCities);
+  };
 
   useEffect(() => {
     getCities();
-  }, [])
+  }, []);
 
   const removeFilters = () => {
     reset();
@@ -32,7 +32,6 @@ const Filters = () => {
   };
 
   const onSubmit = (data) => {
-
     router.push(`?city=${data.city}&date=${data.date}&types=${data.types}`);
   };
 
@@ -77,6 +76,7 @@ const Filters = () => {
       </h1>
 
       <form
+        role="form"
         onSubmit={handleSubmit(onSubmit)}
         className={`
           flex flex-wrap md:flex-nowrap justify-between items-start max-h-0 gap-5 overflow-hidden transition-all duration-500 ${
@@ -124,7 +124,9 @@ const Filters = () => {
           <legend className="text-xl mb-2.5">City</legend>
           <select name="city" id="city" className="input" {...register("city")}>
             {cities?.map((city, index) => (
-              <option key={index} value={city}>{city}</option>
+              <option key={index} value={city}>
+                {city}
+              </option>
             ))}
           </select>
         </fieldset>
@@ -134,6 +136,7 @@ const Filters = () => {
           <input
             type="date"
             name="date"
+            role="date"
             id="date"
             min={new Date().toISOString().split("T")[0]}
             className="input"

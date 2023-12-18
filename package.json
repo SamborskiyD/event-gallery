@@ -2,12 +2,14 @@
   "name": "course-work",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "vitest",
+    "coverage": "vitest --ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
@@ -21,8 +23,16 @@
     "yup": "^1.3.2"
   },
   "devDependencies": {
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^1.0.4",
+    "@vitest/ui": "^1.0.4",
     "autoprefixer": "^10.0.1",
+    "jsdom": "^23.0.1",
+    "msw": "^2.0.11",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0"
+    "tailwindcss": "^3.3.0",
+    "vitest": "^1.0.4"
   }
 }

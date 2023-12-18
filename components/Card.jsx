@@ -10,12 +10,12 @@ const Card = ({
   city
 }) => {
   return (
-    <div className="relative" aria-label="card"> 
+    <div className="relative" role="card"> 
       <div className="group relative shadow-lg rounded-xl overflow-hidden text-primaryGrey hover:scale-110 transition-all duration-300">
         {/* <Image
           width={500}
           height={500}
-          src={background_image}
+          src={background_image || ''}
           alt="poster"
           className="object-cover w-full h-96 bg-primaryOrange"
         /> */}
@@ -29,7 +29,7 @@ const Card = ({
             <li className=" capitalize">Type: {type}</li>
             <li className="">Price: {ticketPrice}</li>
             <li>City: {city}</li>
-            <li>Date {date}</li>
+            <li>Date: {date}</li>
           </ul>
           <a href={`/events?eventId=${uuid}`} aria-label="buy ticket" className="orangeButton transition-color duration-300">Buy Ticket</a>
         </div>

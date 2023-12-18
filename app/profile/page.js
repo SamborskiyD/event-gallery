@@ -8,7 +8,6 @@ export default async function Profile() {
 
     const session = await getServerSession(authOptions)
     const tickets = await getTicketsByUserId(session?.user.uuid)
-    // const userData = await getUserById(searchParams.usetId)
 
     return (
         <section>

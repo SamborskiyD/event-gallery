@@ -1,7 +1,8 @@
 import Credentials from "next-auth/providers/credentials"
 import { JWT } from "next-auth/jwt"
 
-export const authOptions = {
+export default authOptions = {
+    
     providers: [
         Credentials({
             credentials: {
