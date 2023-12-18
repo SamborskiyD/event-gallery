@@ -10,7 +10,7 @@ export async function getProtectedData(url) {
     let res = await fetch(localhost + url, {
         method: "GET",
         headers: {
-            Authorization: session?.user.accessToken,
+            "Authorization": session?.user.accessToken,
         },
     });
 
@@ -20,7 +20,7 @@ export async function getProtectedData(url) {
         res = await fetch(localhost + url, {
             method: "GET",
             headers: {
-                Authorization: session?.user.accessToken,
+                "Authorization": session?.user.accessToken,
             },
         });
 

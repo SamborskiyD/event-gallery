@@ -1,13 +1,13 @@
 
 import Ticket from "@/components/Ticket"
-import { getTicketsByUserId } from "@/actions/getTicketsByUserId"
+import { getProtectedData } from "@/actions/getProtectedData"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/configs/auth"
 
 export default async function Profile() {
 
     const session = await getServerSession(authOptions)
-    const tickets = await getTicketsByUserId(session?.user.uuid)
+    const tickets = await getProtectedData(`/api/ticket?ownerUuid=${session?.user.uuid}`)
 
     return (
         <section>
