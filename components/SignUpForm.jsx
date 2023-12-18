@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -51,6 +51,7 @@ const SignUpForm = ({ registerUser }) => {
       lastName: data.lastName,
       email: data.email,
       password: data.password,
+      role: data.role,
     };
     const res = await registerUser(payload);
     if (res && res?.status == 200) {
@@ -113,6 +114,26 @@ const SignUpForm = ({ registerUser }) => {
         {errors.email?.message && (
           <p role="alert" className=" text-red-500 mt-2">
             {errors.email?.message}
+          </p>
+        )}
+      </div>
+
+      <div>
+        <label htmlFor="role" className="mb-2 block">
+          Role
+        </label>
+        <select
+          id="role"
+          className="input"
+          {...register("role")}
+        >
+          <option value="">Role</option>
+          <option value="CLIENT">Client</option>
+          <option value="ORGANIZER">Organizer</option>
+        </select>
+        {errors.role?.message && (
+          <p role="alert" className=" text-red-500 mt-2">
+            {errors.role?.message}
           </p>
         )}
       </div>
