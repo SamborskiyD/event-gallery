@@ -7,10 +7,10 @@ import { useSession } from "next-auth/react";
 vi.mock("next-auth/react");
 
 describe("Header", () => {
-  test("Header should render correctly when user is loged in", () => {
+  test("Header should render correctly when user is not loged in", () => {
     render(<Header />);
 
-    expect(screen.getByRole("link", { name: /event gallery/i })).toBeDefined();
+    expect(screen.getByRole("link", { name: /tickets/i })).toBeDefined();
     expect(screen.getByRole("link", { name: /log in/i })).toBeDefined();
     expect(screen.getByRole("link", { name: /sign up/i })).toBeDefined();
 

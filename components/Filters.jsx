@@ -83,7 +83,7 @@ const Filters = () => {
             isOpen ? "max-h-[800px] mt-3" : ""
           }`}
       >
-        <fieldset className="flex w-full flex-wrap gap-3 ">
+        <fieldset className="flex w-full flex-wrap gap-3">
           <legend className="text-xl mb-2.5">Type</legend>
           <div className="flex items-center gap-3">
             <input
@@ -122,7 +122,8 @@ const Filters = () => {
 
         <fieldset className="flex w-full items-start gap-3">
           <legend className="text-xl mb-2.5">City</legend>
-          <select name="city" id="city" className="input" {...register("city")}>
+          <select name="city" defaultValue={""} id="city" className="input" {...register("city")}>
+            <option value="" disabled hidden></option>
             {cities?.map((city, index) => (
               <option key={index} value={city}>
                 {city}

@@ -15,8 +15,8 @@ function setup(jsx) {
   }
 
 describe("Sign up Form", () => {
-  const mockRegisterUser = vi.fn((firstName, lastName, email, password) => {
-    return Promise.resolve({firstName: firstName, lastName: lastName, email: email, password: password})
+  const mockRegisterUser = vi.fn((firstName, lastName, email, password, role) => {
+    return Promise.resolve({firstName: firstName, lastName: lastName, email: email, password: password, role: role})
   });
 
   test("Sign up Form should render correctly", () => {
@@ -26,6 +26,7 @@ describe("Sign up Form", () => {
     expect(screen.getByRole("textbox", { name: "Last Name" })).toBeDefined();
     expect(screen.getByRole("textbox", { name: "Email" })).toBeDefined();
     expect(screen.getByRole("password", { name: "Password" })).toBeDefined();
+    expect(screen.getByRole('combobox', {name: "Role"})).toBeDefined()
     expect(
       screen.getByRole("password", { name: "Confirm Password" })
     ).toBeDefined();
@@ -38,7 +39,7 @@ describe("Sign up Form", () => {
 
     await user.click(screen.getByRole("button", { name: "Sign Up" }));
 
-    expect(await screen.findAllByRole("alert")).toHaveLength(5);
+    expect(await screen.findAllByRole("alert")).toHaveLength(6);
     expect(mockRegisterUser).not.toBeCalled();
   });
 
@@ -56,7 +57,7 @@ describe("Sign up Form", () => {
 
     await user.click(screen.getByRole("button", { name: "Sign Up" }));
 
-    expect(await screen.findAllByRole("alert")).toHaveLength(3);
+    expect(await screen.findAllByRole("alert")).toHaveLength(4);
     expect(mockRegisterUser).not.toBeCalled();
   });
 
@@ -70,7 +71,7 @@ describe("Sign up Form", () => {
 
     await user.click(screen.getByRole("button", { name: "Sign Up" }));
 
-    expect(await screen.findAllByRole("alert")).toHaveLength(4);
+    expect(await screen.findAllByRole("alert")).toHaveLength(5);
     expect(mockRegisterUser).not.toBeCalled();
   });
 
@@ -88,7 +89,7 @@ describe("Sign up Form", () => {
 
     await user.click(screen.getByRole("button", { name: "Sign Up" }));
 
-    expect(await screen.findAllByRole("alert")).toHaveLength(3);
+    expect(await screen.findAllByRole("alert")).toHaveLength(4);
     expect(mockRegisterUser).not.toBeCalled();
   });
 
@@ -107,6 +108,7 @@ describe("Sign up Form", () => {
       screen.getByRole("password", { name: "Password" }),
       "1234qwerty"
     );
+    await user.selectOptions(screen.getByRole('combobox', {name: "Role"}), "CLIENT")
     await user.type(
       screen.getByRole("password", { name: "Confirm Password" }),
       "1234qwerty"
@@ -123,7 +125,8 @@ describe("Sign up Form", () => {
         firstName: "Dmytro",
         lastName: "Samborskyi",
         email: 'email@gmail.com',
-        password: "1234qwerty"
+        password: "1234qwerty",
+        role: "CLIENT"
     }
     );
   });

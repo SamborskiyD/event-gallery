@@ -2,8 +2,6 @@ import { expect, test, describe, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
 import LogInForm from "../components/LogInForm";
 
 vi.mock("next/navigation");

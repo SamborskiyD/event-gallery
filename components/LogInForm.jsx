@@ -22,33 +22,37 @@ const validationSchema = yup.object({
 });
 
 const LogInForm = () => {
-
   const router = useRouter();
 
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validationSchema),
   });
 
   const onSubmit = async (data) => {
-
     const payload = {
       email: data.email,
-      password: data.password,
-      redirect: false,
+      password: data.password
+    };
+    const res = await signIn("credentials", {...payload, redirect: false});
+    console.log(res)
+
+    if (res && !res.error) router.push("/profile");
+    else {
+      setError('root.serverError', { 
+        type: res.status,
+        message: res.error
+      })
     }
-    const res = await signIn('credentials', payload);
-
-    if(res && !res.error) router.push('/profile')
-    else console.log(res.error)
-
   };
 
   return (
     <form
+      role="form"
       method="post"
       onSubmit={handleSubmit(onSubmit)}
       className="bg-secondaryBlack p-6 flex flex-col justify-center gap-4 max-w-[600px] w-full rounded-lg"
@@ -63,7 +67,11 @@ const LogInForm = () => {
           className="input invalid:border-2 invalid:border-red-500"
           {...register("email")}
         />
-        {errors.email?.message && <p className=" text-red-500 mt-2" role="alert">{errors.email?.message}</p>}
+        {errors.email?.message && (
+          <p className=" text-red-500 mt-2" role="alert">
+            {errors.email?.message}
+          </p>
+        )}
       </div>
       <div>
         <label htmlFor="password" className="mb-2 block">
@@ -76,7 +84,11 @@ const LogInForm = () => {
           id="password"
           {...register("password")}
         />
-        {errors.password?.message &&<p className=" text-red-500 mt-2" role="alert">{errors.password?.message}</p>}
+        {errors.password?.message && (
+          <p className=" text-red-500 mt-2" role="alert">
+            {errors.password?.message}
+          </p>
+        )}
       </div>
       <button
         type="submit"
@@ -84,6 +96,8 @@ const LogInForm = () => {
       >
         Log In
       </button>
+
+      {errors.root?.serverError && <p className=" text-red-500 mt-2 text-center">{errors.root.serverError.message}</p>}
     </form>
   );
 };

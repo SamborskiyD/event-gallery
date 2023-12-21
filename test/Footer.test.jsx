@@ -7,7 +7,7 @@ describe("Footer", () => {
   test("Footer should render correctly", () => {
     render(<Footer />);
 
-    expect(screen.getByRole("link", { name: /event gallery/i })).toBeDefined();
+    expect(screen.getByRole("link", { name: /tickets/i })).toBeDefined();
 
     expect(screen.getAllByRole("listitem")).toBeDefined();
     expect(screen.getAllByRole("listitem")).toHaveLength(3);
@@ -19,7 +19,7 @@ describe("Footer", () => {
   test("Footer links should render with correct href", () => {
     render(<Footer />);
 
-    expect(screen.getByRole("link", { name: /event gallery/i }).href).toEqual(
+    expect(screen.getByRole("link", { name: /tickets/i }).href).toEqual(
       "http://localhost:3000/"
     );
 

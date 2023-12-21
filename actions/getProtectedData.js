@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]";
+import { authOptions } from '@/configs/auth';
 import { refreshAccessToken } from "./refreshAccessToken";
 
 export async function getProtectedData(url) {
@@ -10,17 +10,17 @@ export async function getProtectedData(url) {
     let res = await fetch(localhost + url, {
         method: "GET",
         headers: {
-            "Authorization": session?.user.accessToken,
+            "Authorization": `Bearer ${session?.user.tokenPair.accessToken}`
         },
     });
 
     if (res.status == 401) {
-        if (session) session.user.accessToken = await refreshAccessToken(session?.user.refreshToken ?? "");
+        if (session) session.user.accessToken = await refreshAccessToken(session?.user.tokenPair.refreshToken ?? "");
 
         res = await fetch(localhost + url, {
             method: "GET",
             headers: {
-                "Authorization": session?.user.accessToken,
+                "Authorization": `Bearer ${session?.user.tokenPair.accessToken}`,
             },
         });
 

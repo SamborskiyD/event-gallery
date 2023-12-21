@@ -7,7 +7,7 @@ const cardProps = {
     name: 'Concert', 
     uuid: 'dslkajdsa2309023jdls-23oi23jldssd',
     background_image: '',
-    date: '2023-12-12',
+    date: new Date('2023-12-12').toLocaleString(),
     type: 'CONCERT',
     ticketPrice: '100',
     city: 'Kiev',
@@ -38,7 +38,7 @@ describe('Card', () => {
 
         expect(screen.getByText('Type: ' + cardProps.type)).toBeDefined()
         expect(screen.getByText('Date: ' + cardProps.date)).toBeDefined()
-        expect(screen.getByText('Price: ' + cardProps.ticketPrice)).toBeDefined()
+        expect(screen.getByText('Price: ' + cardProps.ticketPrice + '₴')).toBeDefined()
         expect(screen.getByText('City: ' + cardProps.city)).toBeDefined()
 
         expect(screen.getByRole('link', {name: /buy ticket/i}).href).toEqual(`http://localhost:3000/events?eventId=${cardProps.uuid}`)

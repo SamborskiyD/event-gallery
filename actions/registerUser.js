@@ -8,7 +8,7 @@ export async function registerUser(data) {
         },
         body: JSON.stringify(data),
     })
-    const tokenPair = await response.json();
+    const res = await response.json();
 
-    return tokenPair
+    return res
 }

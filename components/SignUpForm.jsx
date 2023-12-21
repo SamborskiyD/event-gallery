@@ -19,6 +19,7 @@ const validationSchema = yup.object({
     .string()
     .email("Enter a valid email")
     .required("Email is required"),
+  role: yup.string().required("Role is required"),
   password: yup
     .string()
     .min(8, "Password should contain 8 or more characters")
@@ -54,13 +55,16 @@ const SignUpForm = ({ registerUser }) => {
       role: data.role,
     };
     const res = await registerUser(payload);
-    if (res && res?.status == 200) {
-      setTimeout(router.push("login"), 3000);
+
+    if (res && !res.error) {
+      setTimeout(router.push("/login"), 3000);
     }
   };
 
   return (
     <form
+      noValidate
+      role="form"
       method="post"
       onSubmit={handleSubmit(onSubmit)}
       className="bg-secondaryBlack p-6 flex flex-col justify-center gap-4 max-w-[600px] w-full rounded-lg"
@@ -123,11 +127,12 @@ const SignUpForm = ({ registerUser }) => {
           Role
         </label>
         <select
+          defaultValue={""}
           id="role"
           className="input"
           {...register("role")}
         >
-          <option value="">Role</option>
+          <option value="" disabled hidden></option>
           <option value="CLIENT">Client</option>
           <option value="ORGANIZER">Organizer</option>
         </select>

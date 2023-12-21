@@ -15,9 +15,9 @@ body {
 }
 
 .orangeButton {
-    @apply w-full bg-primaryOrange border-2 border-primaryOrange text-center text-lg p-2 rounded-lg hover:bg-primaryGrey hover:text-primaryOrange
+    @apply w-full block bg-primaryOrange border-2 border-primaryOrange text-center text-lg p-2 rounded-lg hover:bg-primaryGrey hover:text-primaryOrange
 }
 
 .greyButton {
-    @apply w-full bg-stone-800 text-primaryGrey border-2 border-stone-800 hover:border-primaryOrange hover:text-primaryOrange text-center text-lg p-2 rounded-lg hover:bg-secondaryBlack
+    @apply w-full block bg-stone-800 text-primaryGrey border-2 border-stone-800 hover:border-primaryOrange hover:text-primaryOrange text-center text-lg p-2 rounded-lg hover:bg-secondaryBlack
 }

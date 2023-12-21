@@ -18,7 +18,6 @@ export default defineConfig({
         '.next/**',
         'app/api/**',
         'components/AuthProvider.jsx',
-        'app/{.js, .css}'
       ]
     }
   },

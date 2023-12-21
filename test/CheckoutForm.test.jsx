@@ -1,23 +1,45 @@
 import { expect, test, describe, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
+
 import userEvent from "@testing-library/user-event";
+import { useSession } from "next-auth/react";
 
 import CheckoutForm from "../components/CheckoutForm";
 
+vi.mock("next-auth/react", () => {
+  const originalModule = vi.importActual("next-auth/react");
+  const mockSession = {
+    expires: new Date(Date.now() + 2 * 86400).toISOString(),
+    user: { username: "admin" },
+  };
+  return {
+    ...originalModule,
+    useSession: vi.fn(() => {
+      return { data: mockSession, status: "unauthenticated" };
+    }),
+  };
+});
 
 function setup(jsx) {
-    return {
-      user: userEvent.setup(),
-      ...render(jsx),
-    };
-  }
+  return {
+    user: userEvent.setup(),
+    ...render(jsx),
+  };
+}
 
 describe("Checkout Form", () => {
-  const mockBuyTicket = vi.fn((firstName, lastName, email, eventUuid) => {
-    return Promise.resolve({firstName: firstName, lastName: lastName, email: email, eventUuid: eventUuid})
-  });
+  const mockBuyTicket = vi.fn(
+    (userFirstName, userLastName, userEmail, eventUuid) => {
+      return Promise.resolve({
+        userFirstName: userFirstName,
+        userLastName: userLastName,
+        userEmail: userEmail,
+        eventUuid: eventUuid,
+      });
+    }
+  );
 
-  test("Checkout Form should render correctly", () => {
+  test("Checkout Form should render correctly", async () => {
     const { user } = setup(<CheckoutForm />);
 
     expect(screen.getByRole("textbox", { name: "First Name" })).toBeDefined();
@@ -30,7 +52,7 @@ describe("Checkout Form", () => {
     expect(screen.getByRole("button", { name: "Buy Ticket" })).toBeDefined();
   });
 
-  test("Sign up Form should validate empty form filds", async () => {
+  test("Checkout Form should validate empty form filds", async () => {
     const { user } = setup(<CheckoutForm buyTicket={mockBuyTicket} />);
 
     await user.click(screen.getByRole("button", { name: "Buy Ticket" }));
@@ -72,12 +94,14 @@ describe("Checkout Form", () => {
   });
 
   test("Checkout Form should call submit function", async () => {
-    const { user } = setup(<CheckoutForm buyTicket={mockBuyTicket} eventUuid={'12'} />);
+    const { user } = setup(
+      <CheckoutForm buyTicket={mockBuyTicket} eventUuid={"12"} />
+    );
 
     await user.type(
-        screen.getByRole("textbox", { name: "First Name" }),
-        "Dmytro"
-      );
+      screen.getByRole("textbox", { name: "First Name" }),
+      "Dmytro"
+    );
     await user.type(
       screen.getByRole("textbox", { name: "Last Name" }),
       "Samborskyi"
@@ -91,23 +115,19 @@ describe("Checkout Form", () => {
       "4444111188888282"
     );
     await user.type(
-        screen.getByRole("date", { name: "Expiry Date" }),
-        "2023-12"
-      );
-    await user.type(
-      screen.getByRole("textbox", { name: "CVV" }),
-      "123"
+      screen.getByRole("date", { name: "Expiry Date" }),
+      "2023-12"
     );
+    await user.type(screen.getByRole("textbox", { name: "CVV" }), "123");
 
     await user.click(screen.getByRole("button", { name: "Buy Ticket" }));
 
     await waitFor(() => expect(screen.queryAllByRole("alert")).toHaveLength(0));
     expect(mockBuyTicket).toHaveBeenCalledWith({
-        firstName: "Dmytro",
-        lastName: "Samborskyi",
-        email: 'email@gmail.com',
-        eventUuid: '12'
-    }
-    );
+      userFirstName: "Dmytro",
+      userLastName: "Samborskyi",
+      userEmail: "email@gmail.com",
+      eventUuid: "12",
+    });
   });
 });

@@ -4,11 +4,12 @@ import { render, screen } from '@testing-library/react'
 import Ticket from '../components/Ticket';
  
 const ticketProps = {
-    firstName: 'Dmytro', 
-    lastName: 'Samborskyi', 
+    userFirstName: 'Dmytro', 
+    userLastName: 'Samborskyi', 
     uuid: 'dslkajdsa2309023jdls-23oi23jldssd',
-    date: '2023-12-12',
-    address: 'Kiev, 45 Some st.'
+    eventDate: '2023-12-12',
+    eventCity: 'Kiev',
+    eventCityAddress:  '45 Some st.'
 }
 
 describe('Ticket', () => {
@@ -33,9 +34,9 @@ describe('Ticket', () => {
 
         expect(screen.getByRole('img')).toBeDefined()
 
-        expect(screen.getByText(ticketProps.firstName + ' ' + ticketProps.lastName)).toBeDefined()
+        expect(screen.getByText(ticketProps.userFirstName + ' ' + ticketProps.userLastName)).toBeDefined()
 
-        expect(screen.getByText(ticketProps.address)).toBeDefined()
-        expect(screen.getByText(ticketProps.date)).toBeDefined()
+        expect(screen.getByText(ticketProps.eventCity + ', ' + ticketProps.eventCityAddress)).toBeDefined()
+        expect(screen.getByText(new Date(ticketProps.eventDate).toLocaleString())).toBeDefined()
     })
 })

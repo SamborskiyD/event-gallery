@@ -22,7 +22,7 @@ describe("Header", () => {
   test("Header should render correctly when user is loged in", () => {
     render(<Header />);
 
-    expect(screen.getByRole("link", { name: /event gallery/i })).toBeDefined();
+    expect(screen.getByRole("link", { name: /tickets/i })).toBeDefined();
     expect(screen.getByRole("link", { name: /log out/i })).toBeDefined();
     expect(screen.getByRole("link", { name: /profile/i })).toBeDefined();
 
