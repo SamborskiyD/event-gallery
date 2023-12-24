@@ -2,38 +2,34 @@
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import * as yup from "yup";
 
 const validationSchema = yup.object({
-  firstName: yup
+  name: yup
     .string()
-    .required("First Name is required")
-    .matches(/^[A-Za-z]*$/, "First Name should contain only Latin letters"),
-  lastName: yup
+    .required("Event Name is required"),
+  type: yup
     .string()
-    .required("Last Name is required")
-    .matches(/^[A-Za-z]*$/, "Last Name should contain only Latin letters"),
-  email: yup
+    .required("Type is required"),
+  city: yup
     .string()
-    .email("Enter a valid email")
-    .required("Email is required"),
-  card: yup
+    .required("City is required")
+    .matches(/^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/, "City should have correct name"), 
+  cityAddress: yup
     .string()
-    .required("Card number is required")
-    .matches(/^[0-9]*$/, "Card number should contain only numbers")
-    .max(16, "Card number should have 16 sumbols or less"),
-  expiryDate: yup.string().required("Expiry Date is required"),
-  cvv: yup
-    .string()
-    .required("CVV is required")
-    .matches(/^[0-9]*$/, "CVV should contain only numbers")
-    .min(3)
-    .max(4),
+    .required("Address is required"),
+  date: yup.string().required("Date and time is required"),
+  ticketPrice: yup.string().required("Ticket Price is required").matches(/^[0-9]*$/, "Ticket Price should contain only numbers"),
+  maxTicketAmount: yup.string().required("Ticket Amount is required").matches(/^[0-9]*$/, "Ticket Amount should contain only numbers"),
+  imageName: yup.string().required("Image Name is required"),
+  description: yup.string().required("Description is required")
 });
 
-const EventCreationForm = () => {
+const EventCreationForm = ({createEvent}) => {
+
   const {
     register,
     handleSubmit,
@@ -43,27 +39,29 @@ const EventCreationForm = () => {
   });
 
   const session = useSession();
+  const router = useRouter()
 
   const onSubmit = async (data) => {
     const payload = {
-      userFirstName: data.firstName,
-      userLastName: data.lastName,
-      userEmail: data.email,
-      eventUuid: eventUuid,
+      ...data,
+      organizerId: session?.data.user?.userDTO.uuid
     };
 
-    const res = await buyTicket(payload);
+    const res = await createEvent(payload, session.data.user?.tokenPair.accessToken);
+    console.log(res)
+    router.push('/')
   };
 
   return (
     <form
+      noValidate
       role="form"
       onSubmit={handleSubmit(onSubmit)}
       className="bg-secondaryBlack p-6 flex flex-col justify-center gap-4 max-w-[600px] w-full rounded-lg"
     >
       <div>
         <label htmlFor="name" className="mb-2 block">
-          Name
+          Event Name
         </label>
         <input type="text" id="name" className="input" {...register("name")} />
         {errors.name?.message && (
@@ -108,35 +106,36 @@ const EventCreationForm = () => {
       </div>
 
       <div>
-        <label htmlFor="address" className="mb-2 block">
+        <label htmlFor="cityAddress" className="mb-2 block">
           Address
         </label>
         <input
           type="text"
-          id="address"
+          id="cityAddress"
           className="input"
-          {...register("address")}
+          {...register("cityAddress")}
         />
-        {errors.address?.message && (
+        {errors.cityAddress?.message && (
           <p role="alert" className=" text-red-500 mt-2">
-            {errors.address?.message}
+            {errors.cityAddress?.message}
           </p>
         )}
       </div>
 
       <div>
-        <label htmlFor="datetime" className="mb-2 block">
+        <label htmlFor="date" className="mb-2 block">
           Date and Time
         </label>
         <input
           type="datetime-local"
-          id="datetime"
+          id="date"
+          min={new Date().toISOString().split(":", 2).join(":")}
           className="input"
-          {...register("datetime")}
+          {...register("date")}
         />
-        {errors.datetime?.message && (
+        {errors.date?.message && (
           <p role="alert" className=" text-red-500 mt-2">
-            {errors.datetime?.message}
+            {errors.date?.message}
           </p>
         )}
       </div>
@@ -161,18 +160,18 @@ const EventCreationForm = () => {
         </div>
 
         <div className="w-full">
-          <label htmlFor="ticketAmount" className="mb-3 block">
+          <label htmlFor="maxTicketAmount" className="mb-3 block">
             Tickets Amount
           </label>
           <input
             type="text"
             className="input"
-            id="ticketAmount"
-            {...register("ticketAmount")}
+            id="maxTicketAmount"
+            {...register("maxTicketAmount")}
           />
-          {errors.ticketAmount?.message && (
+          {errors.maxTicketAmount?.message && (
             <p role="alert" className=" text-red-500 mt-2">
-              {errors.ticketAmount?.message}
+              {errors.maxTicketAmount?.message}
             </p>
           )}
         </div>
@@ -215,7 +214,7 @@ const EventCreationForm = () => {
         type="submit"
         className="orangeButton transition-color duration-300"
       >
-        Buy Ticket
+        Create Event
       </button>
     </form>
   );

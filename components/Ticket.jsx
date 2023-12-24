@@ -4,17 +4,17 @@ import Image from "next/image";
  
 const Ticket = ({userFirstName, userLastName, eventImageName, eventDate, eventCity, eventCityAddress, uuid}) => {
   return (
-    <div className=" bg-secondaryBlack max-w-[600px] w-full rounded-lg overflow-hidden flex gap-5" key={uuid}> 
-      <Image src={`/${eventImageName}`} width={200} height={200} className="bg-primaryOrange" />
+    <a href={`/ticket?ticketId=${uuid}`}  className=" bg-secondaryBlack max-w-[600px] w-full rounded-lg overflow-hidden flex flex-col" key={uuid}> 
+      <Image src={`/${eventImageName}`} width={600} height={600} className="bg-primaryOrange object-cover w-full" />
 
-      <div className="py-5">
-        <h1 className="text-2xl text-primaryOrange mb-5">
+      <div className="p-5">
+        <h1 className="text-3xl text-primaryOrange mb-5">
           {userFirstName} {userLastName}
         </h1>
 
         <ul className="flex flex-col gap-2">
 
-          <li className="text-lg flex gap-2 items-start">
+          <li className="text-xl flex gap-2 items-start">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -32,7 +32,7 @@ const Ticket = ({userFirstName, userLastName, eventImageName, eventDate, eventCi
             </svg>
             {new Date(eventDate).toLocaleString()}
           </li>
-          <li className="text-lg flex gap-2 items-start">
+          <li className="text-xl flex gap-2 items-start">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -58,7 +58,7 @@ const Ticket = ({userFirstName, userLastName, eventImageName, eventDate, eventCi
         </ul>
         
       </div>
-    </div>
+    </a>
   );
 };
 

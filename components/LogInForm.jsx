@@ -25,7 +25,7 @@ const LogInForm = () => {
   const router = useRouter();
 
   const {
-    register,
+    register, 
     handleSubmit,
     setError,
     formState: { errors },

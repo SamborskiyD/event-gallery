@@ -1,6 +1,8 @@
 
 import Ticket from "@/components/Ticket"
+import Card from "@/components/Card"
 import { getProtectedData } from "@/actions/getProtectedData"
+import { getData } from "@/actions/getData"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/configs/auth"
 
@@ -8,6 +10,7 @@ export default async function Profile() {
 
     const session = await getServerSession(authOptions)
     const tickets = await getProtectedData(`/api/ticket?ownerId=${session?.user.userDTO.uuid}`)
+    const events = await getData(`/api/event?page=0&types=&organizerId=${session?.user.userDTO.uuid}`)
 
     return (
         <section>
@@ -26,7 +29,7 @@ export default async function Profile() {
             </ul>
 
             <h2 className=" text-4xl font-semibold mb-4">Tickets</h2>
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-20">
+            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-20 justify-items-center">
                 {
                     tickets?.map((ticket) => (<Ticket {...ticket} />))
                 }
@@ -35,8 +38,11 @@ export default async function Profile() {
             {
                 session?.user.userDTO.role == 'ORGANIZER' && (
                     <>
-                        <h2 className=" text-4xl font-semibold mb-4">Events</h2>
-                        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+                        <h2 className=" text-4xl font-semibold mb-4">Organized Events</h2>
+                        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-10">
+                            {
+                                events?.map((event) => (<Card {...event} />))
+                            }
                         </div>
                         <a href="/events/add" className="orangeButton sm:max-w-[70%] md:max-w-[50%] xl:max-w-[30%]">
                             Add Event

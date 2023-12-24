@@ -39,6 +39,7 @@ const SignUpForm = ({ registerUser }) => {
   const router = useRouter();
 
   const {
+    setError,
     register,
     handleSubmit,
     formState: { errors },
@@ -56,8 +57,16 @@ const SignUpForm = ({ registerUser }) => {
     };
     const res = await registerUser(payload);
 
-    if (res && !res.error) {
+    console.log(res)
+
+    if (res && !res.code) {
       setTimeout(router.push("/login"), 3000);
+    }
+    else {
+      setError('root.serverError', { 
+        type: res.code,
+        message: res.description
+      })
     }
   };
 
@@ -185,6 +194,7 @@ const SignUpForm = ({ registerUser }) => {
       >
         Sign Up
       </button>
+      {errors.root?.serverError && <p className=" text-red-500 mt-2 text-center">{errors.root.serverError.message}</p>}
     </form>
   );
 };
